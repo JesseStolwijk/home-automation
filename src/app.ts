@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
 import { RootObject } from "./types/reddit";
-import { Gpio } from "onoff";
+import onoff from "onoff";
+const Gpio = onoff.Gpio;
 // const getData = async <T>(url: string): Promise<T> => {
 //   const resposne = await fetch(url);
 //   if (resposne.ok) {

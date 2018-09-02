@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@types/node-fetch": "^2.1.2",
+    "@types/onoff": "0.0.28",
     "node-fetch": "^2.2.0",
     "onoff": "^3.2.1"
   }
