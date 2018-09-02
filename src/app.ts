@@ -1,11 +1,41 @@
-interface IPerson {
-  firstName: string | null;
-  lastName: string;
-}
+import fetch from "node-fetch";
+import { RootObject } from "./types/reddit";
+import { Gpio } from "onoff";
+// const getData = async <T>(url: string): Promise<T> => {
+//   const resposne = await fetch(url);
+//   if (resposne.ok) {
+//     return resposne.json();
+//   } else {
+//     throw new Error("woops");
+//   }
+// };
 
-const user = { firstName: "Jesse", lastName: "Stolwijk" };
+// const test = async () => {
+//   const {
+//     data: { children }
+//   } = await getData<RootObject>("https://www.reddit.com/r/all.json");
+//   children.forEach(({ data: { author, title, ups } }) =>
+//     console.log(ups + " " + author + " " + title)
+//   );
+// };
 
-const greeter = (person: IPerson) =>
-  `Hello ${person.firstName} ${person.lastName}`;
+// test();
+const led = new Gpio(13, "out");
 
-console.log(greeter(user));
+const blinkLED = () => {
+  if (led.readSync() === 0) {
+    led.writeSync(1);
+  } else {
+    led.writeSync(0);
+  }
+};
+
+const interval = setInterval(blinkLED, 250);
+
+const endBlink = () => {
+  clearInterval(interval);
+  led.writeSync(0);
+  led.unexport(); // Unexport GPIO to free resources
+};
+
+setTimeout(endBlink, 5000);
